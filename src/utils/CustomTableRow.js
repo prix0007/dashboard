@@ -80,7 +80,7 @@ const CustomTableRow = ({icon, name, cryptocurrency, holding, value, price, onCl
             <Grid item xs={2} className={classes.dataItem}>
                $ {price}
             </Grid> 
-            <Grid item xs={3} className={classes.dataItem, classes.buttonGroup}>
+            <Grid item xs={3} className={[classes.dataItem ,classes.buttonGroup]}>
                 <ButtonGroup variant="text" aria-label="text primary button group" className={classes.buttonGroupRoot}>
                     <Button onClick={onClickRecieve} className={classes.recieveButton}> 
                         <img src={recieve} className={classes.recieveIcon} alt="recieve"/>

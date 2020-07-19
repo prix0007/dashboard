@@ -1,173 +1,185 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 
-//Custom Component Import
-import Sync from './permanent_items/Sync'
-import Utility from './permanent_items/Utility'
 
 //MUI Icons
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import LoopIcon from '@material-ui/icons/Loop';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import SettingsIcon from '@material-ui/icons/Settings';
+import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceWalletOutlined';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+
 
 //Assets Import 
 import portfolio from '../assets/portfolio.svg'
 import transaction from '../assets/transaction.svg'
 import tutorial from '../assets/tutorial.svg'
+import settings from '../assets/settings.svg'
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`} 
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.customPalette.background.main,
-    display: 'flex',
-    minHeight: 'calc(100vh - 64px)',
-  },
-  tabs: {
-    minWidth: 200,
+  rootView: {
     background: theme.customPalette.background.secondary,
-    borderRight: `1px solid ${theme.palette.divider}`,
-    color: 'rgba(255,255,255,0.8)'
-  },
-  tab: {
-    display: 'flex',
-    textTransform: 'none',
-  },
-  panel_view: {
+    maxWidth: 230,
+    width: 230,
+    height: 'calc(100vh - 68px)',
     display: 'flex',
     flexDirection: 'column',
-    width: 'calc(100% - 200px)',
+    position: 'fixed'
   },
-  permanent_items: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100px',
-      width: '100%',
-  }, 
+  root: {
+    width: '100%',
+    maxWidth: 230,
+    fontSize: '0.7rem',
+    backgroundColor: theme.palette.background.paper,
+    color: 'rgba(255,255,255,0.8)'
+  },
+  nested: {
+    paddingLeft: theme.spacing(10),
+    color: theme.customPalette.primarySubtle,
+  },
+  nestedText: {
+    fontSize: '0.7rem',
+  },    
   beneficiary_button: {
-    color: theme.customPalette.blueButton.text,
-    border: `2px solid ${theme.customPalette.blueButton.background}`,
+    color: theme.customPalette.blueButton.border,
+    border: `2px solid ${theme.customPalette.blueButton.text}`,
     margin: 20,
     textTransform: 'none',
-
   },
   support_button: {
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      textTransform: 'none',
-      background: theme.customPalette.primarySubtle,
-  }
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    textTransform: 'none',
+    background: theme.customPalette.primary,
+    opacity: 0.8
+  }, 
+  header : {
+      padding: 10,
+      position: 'relative',
+      color: theme.customPalette.white.light,
+      paddingLeft: 0
+  },
+  lightWhite: {
+    color: theme.customPalette.white.light
+  },
+  active: {
+      color: theme.customPalette.primary,
+      fontSize: '1rem'
+  },
+ 
 }));
 
-export default function VerticalTabs() {
+export default function NestedList() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [open, setOpen] = React.useState(true);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleClick = () => {
+    setOpen(!open);
   };
 
   return (
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-        <Tab 
-            icon={<AccountBalanceWalletIcon />} 
-            label="Wallets" 
-            className={classes.tab}
-            {...a11yProps(0)} 
-        />
-        <Tab 
-            icon={<LoopIcon />} 
-            label="Last Transaction" 
-            className={classes.tab}
-            {...a11yProps(1)} 
-        />
-        <Tab 
-            icon={<VideoLibraryIcon />} 
-            label="Tutorials" 
-            className={classes.tab}
-            {...a11yProps(2)} 
-        />
-        <Tab 
-            icon={<SettingsIcon />} 
-            label="Settings" 
-            className={classes.tab}
-            {...a11yProps(3)} 
-        />
+    <div className={classes.rootView}>
+        <List
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            className={classes.root}
+        >   
+            <ListItem>
+                <ListItemIcon>
+                    <img src={portfolio} alt="portfolio" />
+                </ListItemIcon>
+                <Typography variant="body1" className={classes.header}>Portfolio</Typography>
+            </ListItem>
+            <ListItem button onClick={handleClick}>
+                <ListItemIcon>
+                    <AccountBalanceWalletOutlinedIcon className={classes.active}/>
+                </ListItemIcon>
+                <ListItemText >
+                    <Typography variant="body2" className={classes.active}>
+                        Wallet
+                    </Typography>
+                </ListItemText>
+                {open ? <ExpandLess className={classes.active} /> : <ExpandMore className={classes.lightWhite}/>}
+            </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    <ListItem button className={classes.nested}>
+                        <ListItemText >
+                            <Typography variant="body2">
+                                Wallet 1
+                            </Typography>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button className={classes.nested}>
+                        <ListItemText >
+                            <Typography variant="body2">
+                                Wallet 2
+                            </Typography>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button className={classes.nested}>
+                        <ListItemText >
+                            <Typography variant="body2">
+                                Wallet 3
+                            </Typography>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                        
+                    </ListItem>
+                </List>
+            </Collapse>
+            <Divider />
+            <ListItem button>
+                <ListItemIcon>
+                    <img src={transaction} alt="transaction" />
+                </ListItemIcon>
+                <ListItemText >
+                    <Typography variant="body2" className={classes.lightWhite}>
+                        Last Transaction
+                    </Typography>
+                </ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem button>
+                <ListItemIcon>
+                    <img src={tutorial} alt="tutorial" />
+                </ListItemIcon>
+                <ListItemText >
+                    <Typography variant="body2" className={classes.lightWhite}>
+                        Tutorials
+                    </Typography>
+                </ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem button>
+                <ListItemIcon>
+                    <img src={settings} alt="settings" />
+                </ListItemIcon>
+                <ListItemText >
+                    <Typography variant="body2" className={classes.lightWhite}>
+                        Settings
+                    </Typography>
+                </ListItemText>
+            </ListItem>
+            <Divider />
+        </List>
+        
         <Button className={classes.beneficiary_button} variant="outlined">
             Make Beneficiary 
         </Button>
+        
         <Button className={classes.support_button} >
             Support
         </Button>
-      </Tabs>
-      <div className={classes.panel_view}>
-        <div className={classes.permanent_items}>
-            <Sync />
-            <Utility />
-        </div>
-        <div className={classes.current_view}>
-            <TabPanel value={value} index={0}>
-                Item One
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Item Three
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Item Four
-            </TabPanel>
-        </div>
-      </div>
     </div>
   );
 }

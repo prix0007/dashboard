@@ -4,13 +4,11 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import { Grid } from "@material-ui/core";
-import { Divider } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
+import { Divider } from '@material-ui/core';
 
 
 //MUI Dialog Prompt Action
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -74,6 +72,9 @@ const styles = theme => ({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
+    darkBlack: {
+        background: '#0e1013'
+    },
     dialogTitle: {
         display: 'flex',
         flexDirection: 'row',
@@ -135,8 +136,9 @@ class Wallet extends Component {
                                 maxWidth='sm'
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
+                                
                                 >
-                                <DialogTitle id="alert-dialog-title" >
+                                <DialogTitle id="alert-dialog-title" className={classes.darkBlack} >
                                     <div className={classes.dialogTitle}>
                                         <Typography variant="h5" >Recieve</Typography> 
                                         <CustomIconButton title="Close" onClick={this.handleClose}>
@@ -144,7 +146,7 @@ class Wallet extends Component {
                                         </CustomIconButton>
                                     </div>
                                 </DialogTitle>
-                                <DialogContent>
+                                <DialogContent className={classes.darkBlack}>
                                     <DialogContentText id="alert-dialog-description">
                                         <RecieveForm /> 
                                     </DialogContentText>
@@ -156,10 +158,14 @@ class Wallet extends Component {
                 <Typography variant="h4" className={classes.title}>
                     Wallet 1
                 </Typography>
+                { 
+                    //Dialog Form Rendered Here (It Overlays )
+                    dialogForm 
+                }
                 {
                     // Main Table Component Starts Here
                 }
-                { dialogForm }
+               
                 <div className={classes.table}>
                     <div className={classes.tableTitle}>
                         <Typography variant="body1" className={classes.tableTitleText}> Total Coins - 9</Typography>

@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider'
 //MUI Icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
-import { Typography, makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 //Custom Slider Switch
 const AntSwitch = withStyles((theme) => ({

@@ -7,14 +7,12 @@ import maximize from '../assets/maximize.svg'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 
 //MUI Icons
 import Close from '@material-ui/icons/Close'
 import Minimize from '@material-ui/icons/Minimize'
-import Maximize from '@material-ui/icons/Maximize'
 
 //Custom Component Style
 import CustomIconButton from '../utils/CustomIconButtom'

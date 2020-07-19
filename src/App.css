@@ -7,3 +7,23 @@ body {
   text-align: center;
   background-color: #0e1013;
 }
+
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-width: 14px;
+    scrollbar-color: rgab(66,66,66,0.7) #0e1013;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 14px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #0e1013;
+    border-left: 1px solid rgba(66,66,66,1);
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(66,66,66,0.7);
+  }

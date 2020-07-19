@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 
 import SideDrawer from './SideDrawer'
-import SideDrawer2 from './SideDrawer2'
 import Wallet from "./Wallet";
 
 //Custom Components
@@ -16,7 +15,7 @@ class MainDisplay extends Component {
         return (
             <Grid container>
                 <Grid item xs={2}>
-                    <SideDrawer2 />
+                    <SideDrawer /> 
                 </Grid>
                 <Grid item xs={10}>
                     <Sync />

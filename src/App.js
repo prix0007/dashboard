@@ -6,7 +6,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
 //MUI Components
-import Button from '@material-ui/core/Button'
 import orange from '@material-ui/core/colors/orange';
 
 

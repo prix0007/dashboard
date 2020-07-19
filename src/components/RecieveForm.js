@@ -1,6 +1,9 @@
 import React from 'react';
+
 import PropTypes from "prop-types";
-import { makeStyles, withStyles, MuiThemeProvider } from "@material-ui/core/styles";
+import styled from 'styled-components'
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+
 import clsx from "clsx";
 import StepConnector from '@material-ui/core/StepConnector'
 import Stepper from '@material-ui/core/Stepper';
@@ -9,19 +12,14 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
-import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
 
 //Icon
 import Check from "@material-ui/icons/Check";
+import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 
-const formTheme = {
-    primary: {
-        main: '#ef6c00'
-    },
-    secondary: {
-        main: '#ffa000'
-    }
-}
+import rightIcon from '../assets/chevron_left.svg'
+import information from '../assets/information.svg'
+
 // Custom Stepper
 
 const QontoConnector = withStyles({
@@ -112,14 +110,80 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  stepRoot: {
+    padding: 20,
+    paddingLeft: 50,
+    paddingRight: 50
+  },
+  darkBlack: {
+    background: '#0e1013'
+  },
+  toggleButtonCheck: {
+    fontSize: '1rem',
+    marginTop: 4,
+    position: 'absolute',
+    right: 35,
+    color: ' #ff9800'
+  },
+  chevronRight: {
+    marginRight: 10,
+    marginTop: 3,
+    height: '1rem',
+    width: '1rem'
+  },
+  specialCode: {
+    background: theme.customPalette.background.main,
+    color: theme.customPalette.primary,
+    position: 'relative',
+    textAlign: 'center',
+    borderRadius: '5px',
+    padding: '20px 10px',
+    marginBottom: 15,
+    border: `2px dotted ${theme.customPalette.background.secondary}`
+  },
+  information: {
+    color: theme.customPalette.blueButton.text,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  reVerifyButton: {
+    color: theme.customPalette.blueButton.border,
+    border: `2px solid ${theme.customPalette.blueButton.text}`,
+    margin: 20,
+    textTransform: 'none',
+    marginLeft: 180
+  },
+  copyButton: {
+    position: 'absolute',
+    right: 0,
+    marginRight: 5,
+    color: theme.customPalette.white.light,
+    background: theme.customPalette.background.light
+  }
 }));
 
 function getSteps() {
   return ['Device', 'Verification', 'Recieve'];
 }
 
-//Custom Added Views
-const ToggleButton = ({ text }) => {
+//Custom Added Views for Data Display
+
+const CustomPaper = styled(Paper)`
+    position: relative;
+    display: flex;
+    justifyContent: space-between; 
+    alignItems: center;
+    background: rgba(66,66,66,0.5);
+    padding: 10px 30px;
+    margin: 15px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background: rgba(66,66,66,0.3);
+    }
+`
+const ToggleButton = ({ text, classes }) => {
     const [completed, setCompleted] = React.useState(false);
 
     const toggleComplete = () => {
@@ -129,56 +193,90 @@ const ToggleButton = ({ text }) => {
             setCompleted(true);
         }
     }
-
     return (
-        <Paper variant="outline" onClick={toggleComplete}>
-            <KeyboardArrowRightOutlinedIcon />
-            { text }
+        <CustomPaper 
+          variant="outlined" 
+          elevation={0} 
+          onClick={toggleComplete} 
+          >
+            <img src={rightIcon} alt="step" className={classes.chevronRight}/>
+            <Typography variant="body1" >{ text }</Typography>
             {
                 completed ?
-                    <Check />
+                    <DoneOutlineOutlinedIcon className={classes.toggleButtonCheck} />
                     :
                     null
             }
-        </Paper>
+        </CustomPaper>
     )
 }
 
-function getStepContent(stepIndex) {
+//Prop Types from Toggle Button
+ToggleButton.propTypes = {
+  text: PropTypes.string.isRequired
+}
+
+function getStepContent(stepIndex, classes) {
+
+  
+
   switch (stepIndex) {
     case 0:
       return <React.Fragment>
-                <Typography variant="body2"> Follow the instruction on Device </Typography>
-                <ToggleButton text="Select the wallet on Device" />
-                <ToggleButton text="Select the Coin on Device" />
-                <ToggleButton text="Tap 1 card of any 4 cards" />
+                <div className={classes.stepRoot}>
+                  <Typography variant="body2"> Follow the instruction on Device </Typography>
+                  <ToggleButton text="Select the wallet on Device" classes={classes} />
+                  <ToggleButton text="Select the Coin on Device" classes={classes}/>
+                  <ToggleButton text="Tap 1 card of any 4 cards" classes={classes} />
+                </div>
              </React.Fragment>;
+             
     case 1:
       return <React.Fragment>
-                <Typography variant="h4">wehfiwe57wefkow6578ehfji578</Typography>
-                <div>
-                    <Typography>Verify Address on Device</Typography>
-                    <ToggleButton text="Please match the address to be shown in X1 Wallet" />
+                <div className={classes.stepRoot}>
+                  <Typography variant="h5" className={classes.specialCode}>wehfiwe57wefkow6578ehfji578</Typography>
+                  <div>
+                      <Typography variant="body2">Verify Address on Device</Typography>
+                      <ToggleButton text="Please match the address to be shown in X1 Wallet" classes={classes}/>
+                  </div>
                 </div>
              </React.Fragment>;
     case 2:
       return <React.Fragment>
-                <Typography variant="body2">Coin Address</Typography>
-                <div>
-                    <Typography variant="h4">wehfiwe57wefkow6578ehfji578</Typography>
-                    <Button variant="contained">Copy</Button>
+                <div className={classes.stepRoot}>
+                  <Typography variant="body2">Coin Address</Typography>
+                  <Typography variant="h5"  id="coin-code" className={classes.specialCode}>
+                      hgeyf56gqifut765
+                      <Button 
+                        variant="outlined" 
+                        onClick={() => copyCodeToClipboard()} 
+                        className={classes.copyButton}
+                      >
+                        Copy 
+                      </Button>
+                  </Typography>
+                  
+                  <Typography variant="body2" className={classes.information}>
+                      <img src={information} alt="information" style={{marginRight: 10}}/>
+                      Address Verified
+                  </Typography>
+                  <Button variant="outlined" className={classes.reVerifyButton}>
+                      Re-Verify
+                  </Button>
                 </div>
-                <Typography variant="body2">Address Verified</Typography>
-                <Button variant="outlined">
-                    Re-Verify
-                </Button>
              </React.Fragment>;
     default:
       return 'Unknown Step';
   }
 }
 
-export default function HorizontalLabelPositionBelowStepper() {
+
+const copyCodeToClipboard = () => {
+  var text = document.getElementById('coin-code').innerText
+  navigator.clipboard.writeText(text)
+}
+
+const RecieveForm = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -200,12 +298,13 @@ export default function HorizontalLabelPositionBelowStepper() {
         <Stepper
             alternativeLabel
             activeStep={activeStep}
+            className={classes.darkBlack}
             connector={<QontoConnector />}
         >
             {steps.map(label => (
-            <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-            </Step>
+              <Step key={label}>
+                  <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+              </Step>
             ))}
         </Stepper>
         <div>
@@ -216,7 +315,7 @@ export default function HorizontalLabelPositionBelowStepper() {
             </div>
             ) : (
             <div>
-                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                <Typography className={classes.instructions}>{getStepContent(activeStep, classes)}</Typography>
                 <div>
                 <Button
                     disabled={activeStep === 0}
@@ -235,3 +334,5 @@ export default function HorizontalLabelPositionBelowStepper() {
         </div>  
   );
 }
+
+export default RecieveForm

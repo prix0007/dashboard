@@ -1,16 +1,19 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 //MUI Imports
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 
-//MUI  Icons
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import AddIcon from '@material-ui/icons/Add'
-import SearchIcon from '@material-ui/icons/Search'
+
+//Import custom icons
+import plus_icon from '../../assets/plus.svg';
+import delete_icon from '../../assets/delete.svg';
+import search_icon from '../../assets/search.svg'
+
 
 const useStyles = theme => ({
     root: {
@@ -22,46 +25,66 @@ const useStyles = theme => ({
         paddingRight: 60,
     },
     add : {
-        color: theme.customPalette.primary,
-        fontSize: '1rem',
+        height: 12,
+        width: 12,
         marginRight: 10
     },
     delete: {
-        color: theme.customPalette.primary,
-        fontSize: '1rem',
+        height: 14,
+        width: 14,
         marginRight: 10
     },
     buttonGroup: {
+        width: 232,
+        display: 'flex',
+        justifyContent: 'space-between',
+        borderRadius: 5,
         background: theme.customPalette.background.light,
         border: `1px solid ${theme.customPalette.background.secondary}`,
     },
+    buttonGroupSeperator: {
+        height: 18,
+        marginTop: 9
+    },
     button: {
+        fontSize: 12,    
         paddingLeft: 20,
         paddingRight: 20,
-        color: 'rgba(255,255,255,0.8)',
+        borderRadius:  0,
+        color: 'rgba(255,255,255,0.6)',
     },
-    search: {
+    searchInputGroup: {
+        display: 'flex',
+        alignItems: 'center',
+        background: theme.customPalette.background.light,
+        borderRadius: 5,
+        padding: 4,
+        paddingLeft: 15,
+        paddingRight: 10,
+        border: `1px solid ${theme.customPalette.background.secondary}`,
         marginRight: 20,
-        width: 300,
     },
-    'MuiTextField-root': {
-        paddingTop: 10,
-        paddingBotton: 10
-    }
+    searchIcon: {
+        marginRight: 10
+    },
 })
 
-const CustomTextField = withStyles({
-    root: {
-      '& .MuiOutlinedInput-root': {
-        '& input': {
-            padding: 10,
-        },
-        '& fieldset': {
-          borderRadius: `8px`,
-        },
-      },
-    },
-  })(TextField);
+const CustomInput = styled.input`
+    color: rgba(255,255,255,0.7);
+    background: rgba(0,0,0,0);
+    border: none;
+    boxShadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    margin: 0px;
+    padding: 3px;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+`;
+
 
 const Utility = (props) => {
     const { classes } = props
@@ -69,26 +92,21 @@ const Utility = (props) => {
         <Grid container className={classes.root}>
             <Grid item xs={4} />
             <Grid item xs={8} className={classes.view}>
-                <CustomTextField
-                    label="Search Your Coin"
-                    variant="outlined"
-                    className={classes.search}
-                    InputProps={{
-                        startAdornment: (
-                              <SearchIcon />
-                          ),
-                    }}
-                />
-                <ButtonGroup disableElevation variant="text" className={classes.buttonGroup}>
+                <div className={classes.searchInputGroup}>
+                    <img src={search_icon} alt="search" className={classes.searchIcon}/>
+                    <CustomInput type="text" placeholder="Search Your Coin."/>
+                </div>
+                <div className={classes.buttonGroup}>
                     <Button className={classes.button}>
-                        <AddIcon className={classes.add} />
+                        <img src={plus_icon} alt="plus_icon" className={classes.add} />
                         ADD COIN
                     </Button>
+                    <Divider className={classes.buttonGroupSeperator} variant="vertical" />
                     <Button className={classes.button}>
-                        <DeleteOutlineIcon className={classes.delete} />
+                        <img src={delete_icon} alt="delete_icon" className={classes.delete} />
                         DELETE
                     </Button>
-                </ButtonGroup>
+                </div>
             </Grid>
         </Grid>
     )

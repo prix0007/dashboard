@@ -13,6 +13,9 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
+//Custom Icon Import
+import up_and_down_icon from '../assets/up_down.svg'
+
 const options = ['Amount High-Low', 'Amount Low-High', 'Arrange A-Z', 'Arrange Z-A'];
 
 const styles = theme => ({
@@ -20,14 +23,32 @@ const styles = theme => ({
         color: theme.customPalette.primary
     },
     button: {
-        color: 'rgba(255,255,255, 1)',
+        color: 'rgba(255,255,255, 0.7)',
         textTransform: 'none'
     },
     dropMenuRoot: {
-        zIndex: 100
+        zIndex: 100,
+        width: 240,
+        
     },
     dropMenu: {
-        zIndex: 100
+        zIndex: 100,
+        color: 'rgba(255,255,255, 0.7)',
+        background: theme.customPalette.background.secondary,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        textAlign: 'center'
+    },
+    dropMenuItem: {
+      textAlign: 'center',
+      padding: 30
+    },
+    upDownIcon: {
+      height: 14,
+      width: 11,
+      marginRight: 15,
+      marginLeft: 10
     }
 })
 
@@ -63,7 +84,10 @@ const  SplitButton = (props) => {
   return (
       <Grid item xs={3}>
         <ButtonGroup variant="text" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={handleClick} className={classes.button}>{options[selectedIndex]}</Button>
+          <Button onClick={handleClick} className={classes.button}>
+            <img src={up_and_down_icon} className={classes.upDownIcon} alt="up_down" />
+            {options[selectedIndex]}
+          </Button>
           <Button
             color="primary"
             size="small"
@@ -93,6 +117,7 @@ const  SplitButton = (props) => {
                         key={option}
                         selected={index === selectedIndex}
                         onClick={(event) => handleMenuItemClick(event, index)}
+                        classes={classes.dropMenuItem}
                       >
                         {option}
                       </MenuItem>

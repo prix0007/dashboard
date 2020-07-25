@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Divider from '@material-ui/core/Divider'
 
 //Custom Assets Import 
 import send from '../assets/send.svg'
@@ -15,7 +15,7 @@ const styles = theme => ({
     data: {
         color: 'rgba(255,255,255,0.8)',
         height: 'auto',
-        marginTop: 20,
+        marginBottom: 20,
         padding: 10,
         borderRadius: 3,
         background: `${theme.customPalette.background.light}`
@@ -32,14 +32,17 @@ const styles = theme => ({
         marginRight: 10
     },
     buttonGroup: {
-        padding: 10
     },
     buttonGroupRoot: {
+        display: 'flex',
+    },
+    buttonGroupSeperator: {
         height: 20,
+        marginTop: 8
     },
     recieveButton: {
         color: theme.customPalette.blueButton.text,
-        padding: 20
+        borderRadius: 0
     },
     recieveIcon: {
         height: 20,
@@ -48,7 +51,7 @@ const styles = theme => ({
     } ,
     sendButton: {
         color: theme.customPalette.primary,
-        padding: 20
+        borderRadius: 0
     },
     sendIcon: {
         height: 20,
@@ -81,16 +84,17 @@ const CustomTableRow = ({icon, name, cryptocurrency, holding, value, price, onCl
                $ {price}
             </Grid> 
             <Grid item xs={3} className={[classes.dataItem ,classes.buttonGroup]}>
-                <ButtonGroup variant="text" aria-label="text primary button group" className={classes.buttonGroupRoot}>
+                <div className={classes.buttonGroupRoot}>
                     <Button onClick={onClickRecieve} className={classes.recieveButton}> 
                         <img src={recieve} className={classes.recieveIcon} alt="recieve"/>
                         Recieve
                     </Button>
+                    <Divider variant="vertical" className={classes.buttonGroupSeperator}/>
                     <Button onClick={onClickSend} className={classes.sendButton}>
                         <img src={send} className={classes.sendIcon} alt="send"/>
                         Send
                     </Button>
-                </ButtonGroup>
+                </div>
             </Grid>
         </Grid>
     )

@@ -19,13 +19,12 @@ import CustomTableRow from '../utils/CustomTableRow'
 import RecieveForm from './RecieveForm';
 import CustomIconButton from '../utils/CustomIconButtom'
 
-//MUI Icons
-import Close from '@material-ui/icons/Close';
 
 //Asset Load
 import bitcoin from '../assets/bitcoin.svg'
 import ethereum from '../assets/ethereum.svg'
 import binance from '../assets/binance.svg'
+import close_icon from '../assets/close.svg'
 
 
 const styles = theme => ({
@@ -54,8 +53,9 @@ const styles = theme => ({
         paddingLeft: 10
     },
     tableTitleText: {
-        color: 'rgba(255,255,255,0.7)',
-        fontSize: "0.9rem"
+        color: 'rgba(255,255,255,0.65)',
+        fontSize: "0.9rem",
+        marginLeft: 20
     },
     tableData: {
         display: 'flex',
@@ -63,11 +63,12 @@ const styles = theme => ({
         padding: 10
     },
     tableDataHeader: {
-        color: 'rgba(255,255,255,0.6)',
+        color: 'rgba(255,255,255,0.5)',
         height: 30,
         marginTop: 20,
     },
     tableDataHeaderItem: {
+        fontSize: 14,
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center'
@@ -79,7 +80,18 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingLeft: 100,
+        paddingRight: 100,
+        paddingTop: 20
+    },
+    dialogTitleText: {
+        marginLeft: '315px',
+        color: 'rgba(255,255,255,0.7)'
+    },
+    dialogContent: {
+        paddingLeft: 100,
+        paddingRight: 100
     }
 })
 
@@ -133,20 +145,20 @@ class Wallet extends Component {
                                 open={openDialog}
                                 onClose={this.handleClose}
                                 fullWidth='sm'
-                                maxWidth='sm'
+                                maxWidth='md'
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
-                                
+                                className={classes.dialog}
                                 >
                                 <DialogTitle id="alert-dialog-title" className={classes.darkBlack} >
                                     <div className={classes.dialogTitle}>
-                                        <Typography variant="h5" >Recieve</Typography> 
+                                        <Typography variant="h5" className={classes.dialogTitleText} >Recieve</Typography> 
                                         <CustomIconButton title="Close" onClick={this.handleClose}>
-                                            <Close />
+                                            <img src={close_icon} alt="close" />
                                         </CustomIconButton>
                                     </div>
                                 </DialogTitle>
-                                <DialogContent className={classes.darkBlack}>
+                                <DialogContent className={[classes.darkBlack, classes.dialogContent]}>
                                     <DialogContentText id="alert-dialog-description">
                                         <RecieveForm /> 
                                     </DialogContentText>
@@ -174,7 +186,7 @@ class Wallet extends Component {
                     <Divider />
                     <div className={classes.tableData}>
                         <Grid container className={classes.tableDataHeader}>
-                            <Grid item xs={3} className={classes.tableDataHeaderItem}>
+                            <Grid item xs={3} className={classes.tableDataHeaderItem} style={{paddingLeft: '20px'}}>
                                 Coin
                             </Grid>
                             <Grid item xs={2} className={classes.tableDataHeaderItem}>

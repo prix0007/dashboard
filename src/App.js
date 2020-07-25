@@ -8,13 +8,41 @@ import { ThemeProvider } from '@material-ui/styles';
 //MUI Components
 import orange from '@material-ui/core/colors/orange';
 
+import LatoWoff2 from './fonts/lato_regular.woff2';
+
+
 
 //Custom Components
 import Appbar from './components/Appbar'
 import MainDisplay from './components/MainDisplay'
 
+//
+const lato = {
+  fontFamily: 'Lato',
+  fontStyle: 'normal',
+  fontDisplay: 'swap',
+  fontWeight: 400,
+  src: `
+    local('Lato'),
+    local('Lato-Regular'),
+    url(${LatoWoff2}) format('woff2')
+  `,
+  unicodeRange:
+    'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF',
+};
+
 //Theme
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Lato, sans-serif'
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [lato],
+      },
+    },
+  },
   palette: {
     type: 'dark',
     primary: {
@@ -29,12 +57,12 @@ const theme = createMuiTheme({
     secondary: '#8bc34a',
     background: {
       main: '#212121',
-      secondary: '#424242',
+      secondary: '#1E2328',
       light: 'rgba(66,66,66,0.3)'
     },
     blueButton: {
-      border: '#2979ff',
-      text: '#2962ff'
+      border: '#5151FF',
+      text: '#9898FF'
     },
     white: {
       main: 'rgba(255,255,255,1)',

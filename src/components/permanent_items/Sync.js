@@ -7,9 +7,11 @@ import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 
 //MUI Icons
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import { Typography } from '@material-ui/core';
+
+//Custom Icons
+import checkmark_icon from '../../assets/checkmark.svg'
 
 //Custom Slider Switch
 const AntSwitch = withStyles((theme) => ({
@@ -25,17 +27,19 @@ const AntSwitch = withStyles((theme) => ({
       color: '#ff9800',
       '&$checked': {
         transform: 'translateX(18px)',
-        color: theme.customPalette.secondary,
+        color: '#ff9800',
         '& + $track': {
           opacity: 1,
           backgroundColor: 'rgba(255,255,255,0)',
-          borderColor: theme.customPalette.secondary,
+          borderColor: '#ff9800',
         },
       },
     },
     thumb: {
-      width: 16,
-      height: 16,
+      width: 8,
+      height: 8,
+      marginLeft: 3,
+      marginTop: 4,
       boxShadow: 'none',
     },
     track: {
@@ -71,10 +75,10 @@ const useStyles = theme => ({
         color: theme.customPalette.primary
     },
     successIcon: {
-      color: theme.customPalette.secondary
+      color: theme.customPalette.primary
     },
     successText: {
-      color: theme.customPalette.secondary
+      color: theme.customPalette.primary
     }
 });
 
@@ -82,7 +86,7 @@ const Sync = (props) => {
     
     const { classes } = props;
 
-    const [synced, setSync] = React.useState(false);
+    const [synced, setSync] = React.useState(true);
 
     const toggleSync = () => {
       if(synced){
@@ -99,7 +103,7 @@ const Sync = (props) => {
                   {
                     synced ?
                       <React.Fragment>
-                        <CheckCircleIcon className={classes.successIcon} />
+                        <img src={checkmark_icon} alt='checkmark_icon' className={classes.successIcon} />
                         <Typography variant="body1" className={classes.successText}>Synchronized</Typography>
                       </React.Fragment>
                       : 

@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
 
 //Icon
-import Check from "@material-ui/icons/Check";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 
 import rightIcon from '../assets/chevron_left.svg'
@@ -39,8 +39,8 @@ const QontoConnector = withStyles({
       }
     },
     line: {
-      borderColor: "#ff9800",
-      borderTopWidth: 3,
+      borderColor: "#rgba(255,255,255,0.6)",
+      borderTopWidth: 1,
       borderRadius: 1
     }
   })(StepConnector);
@@ -55,23 +55,37 @@ const QontoConnector = withStyles({
     active: {
       color: "#ff9800"
     },
+    outerCircle: {
+      border: '1px solid #ff9800',
+      padding: 4,
+      borderRadius: '50%'
+    },
+    notActiveCircle: {
+      border: '1px solid rgba(255,255,255,0.6)',
+    },
     circle: {
       width: 20,
       height: 20,
       borderRadius: "50%",
-      backgroundColor: "currentColor"
+      backgroundColor: "currentColor",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     completed: {
       color: "#ffb74d",
       zIndex: 1,
-      fontSize: 18
+      fontSize: 28,
+    },
+    text: {
+      color: 'black',
+      fontWeight: 600
     }
   });
   
   function QontoStepIcon(props) {
     const classes = useQontoStepIconStyles();
-    const { active, completed } = props;
-  
+    const { active, completed , icon} = props;
     return (
       <div
         className={clsx(classes.root, {
@@ -79,9 +93,14 @@ const QontoConnector = withStyles({
         })}
       >
         {completed ? (
-          <Check className={classes.completed} />
+          <CheckCircleIcon className={classes.completed} />
         ) : (
-          <div className={classes.circle} />
+          <div className={clsx(classes.outerCircle,{ 
+              [classes.notActiveCircle]: !active })}>
+            <div className={classes.circle} >
+              <span className={classes.text}>{icon}</span>
+            </div>
+          </div>
         )}
       </div>
     );
@@ -139,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     padding: '20px 10px',
     marginBottom: 15,
-    border: `2px dotted ${theme.customPalette.background.secondary}`
+    border: `2px dashed ${theme.customPalette.background.light}`
   },
   information: {
     color: theme.customPalette.blueButton.text,
@@ -148,18 +167,24 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10
   },
   reVerifyButton: {
-    color: theme.customPalette.blueButton.border,
-    border: `2px solid ${theme.customPalette.blueButton.text}`,
+    color: theme.customPalette.blueButton.text,
+    border: `2px solid ${theme.customPalette.blueButton.border}`,
     margin: 20,
     textTransform: 'none',
-    marginLeft: 180
+    marginLeft: 280
   },
   copyButton: {
     position: 'absolute',
     right: 0,
     marginRight: 5,
-    color: theme.customPalette.white.light,
+    top: 12,
+    border: 'none',
+    height: 50,
+    color: theme.customPalette.primarySubtle,
     background: theme.customPalette.background.light
+  },
+  active: {
+    color: theme.customPalette.blueButton.text
   }
 }));
 
@@ -200,7 +225,7 @@ const ToggleButton = ({ text, classes }) => {
           onClick={toggleComplete} 
           >
             <img src={rightIcon} alt="step" className={classes.chevronRight}/>
-            <Typography variant="body1" >{ text }</Typography>
+            <Typography variant="body1" className={completed ? classes.active : ""} >{ text }</Typography>
             {
                 completed ?
                     <DoneOutlineOutlinedIcon className={classes.toggleButtonCheck} />
@@ -246,7 +271,7 @@ function getStepContent(stepIndex, classes) {
                 <div className={classes.stepRoot}>
                   <Typography variant="body2">Coin Address</Typography>
                   <Typography variant="h5"  id="coin-code" className={classes.specialCode}>
-                      hgeyf56gqifut765
+                      hgeyf56gqifut765ewf24r42
                       <Button 
                         variant="outlined" 
                         onClick={() => copyCodeToClipboard()} 
@@ -327,6 +352,7 @@ const RecieveForm = () => {
                 <Button variant="contained" color="primary" onClick={handleNext}>
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
+                <p>These buttons are just for navigation . Will be removed when data is available</p>
                 </div>
             </div>
             )}

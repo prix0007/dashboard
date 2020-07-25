@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 230,
     fontSize: '0.7rem',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.customPalette.background.secondary,
     color: 'rgba(255,255,255,0.8)'
   },
   nested: {
@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.7rem',
   },    
   beneficiary_button: {
-    color: theme.customPalette.blueButton.border,
-    border: `2px solid ${theme.customPalette.blueButton.text}`,
+    color: theme.customPalette.blueButton.text,
+    border: `2px solid ${theme.customPalette.blueButton.border}`,
     margin: 20,
     textTransform: 'none',
   },
@@ -58,8 +58,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     width: '100%',
     textTransform: 'none',
-    background: theme.customPalette.primary,
-    opacity: 0.8
+    background: '#4B3C2B',
   }, 
   header : {
       padding: 10,
@@ -74,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
       color: theme.customPalette.primary,
       fontSize: '1rem'
   },
+  activeWallet: {
+    color: theme.customPalette.primary,
+  }
  
 }));
 
@@ -107,28 +109,28 @@ export default function NestedList() {
                         Wallet
                     </Typography>
                 </ListItemText>
-                {open ? <ExpandLess className={classes.active} /> : <ExpandMore className={classes.lightWhite}/>}
+                {open ? <ExpandLess className={classes.active} /> : <ExpandMore className={classes.active}/>}
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <ListItem button className={classes.nested}>
                         <ListItemText >
-                            <Typography variant="body2">
-                                Wallet 1
+                            <Typography variant="body2" className={classes.activeWallet}>
+                                Wallet 1    <span style={{marginLeft: '30px', fontSize: '20px'}}>...</span>
                             </Typography>
                         </ListItemText>
                     </ListItem>
                     <ListItem button className={classes.nested}>
                         <ListItemText >
                             <Typography variant="body2">
-                                Wallet 2
+                                Wallet 2   <span style={{marginLeft: '30px', fontSize: '20px'}}>...</span>
                             </Typography>
                         </ListItemText>
                     </ListItem>
                     <ListItem button className={classes.nested}>
                         <ListItemText >
                             <Typography variant="body2">
-                                Wallet 3
+                                Wallet 3   <span style={{marginLeft: '30px', fontSize: '20px'}}>...</span>
                             </Typography>
                         </ListItemText>
                     </ListItem>
